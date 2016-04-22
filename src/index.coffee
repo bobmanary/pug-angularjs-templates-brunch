@@ -19,7 +19,7 @@ module.exports = class AngularTemplatesCompiler
 
 
   compile: (data, path, callback) ->
-    pugfunction = pug data,
+    pugfunction = pug.compile data,
       debug: false
       pretty: @pretty
       doctype: @doctype
