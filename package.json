@@ -28,7 +28,7 @@
   "homepage": "https://github.com/sstunkel/pug-angularjs-templates-brunch",
   "repository": {
     "type": "git",
-    "url": "git@github.com:dmoscrop/angularjs-templates-brunch.git"
+    "url": "git@github.com:sstunkgl/pug-angularjs-templates-brunch.git"
   },
   "main": "lib/index",
   "engines": {
