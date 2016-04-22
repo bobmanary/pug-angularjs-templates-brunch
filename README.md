@@ -1,4 +1,4 @@
-# Compile templates in an AngularJS module as a Brunch plugin
+# Compile Pug templates in an AngularJS module as a Brunch plugin
 
 For each template, wrap around in a shared AngularJS module called
 `templates` by default with each template file's path as the template URL.
@@ -60,7 +60,7 @@ plugins:
     module: 'MyModule'
 ```
 
-### path_transform 
+### path_transform
 
 Specify a transform function for the template path. This callback function will
 be invoked with the brunch path to each template file (e.g.
@@ -89,4 +89,3 @@ Inspiration from the following projects:
 - https://github.com/nathanredblur/html-angularjs-brunch
 - https://github.com/kenhkan/angular-templates-brunch/
 - https://github.com/jupl/aang-template-brunch
-

@@ -1,20 +1,32 @@
 escape = require('js-string-escape');
+pug = require('pug')
 
 module.exports = class AngularTemplatesCompiler
   brunchPlugin: yes
   type: 'template'
-  extension: 'html'
+  extension: 'jade'
 
   _default_path_transform: (path) ->
     # Default path transformation is a no-op
     path
 
   constructor: (config) ->
-    @module = config.plugins?.angular_templates?.module or 'templates'
-    @path_transform = config.plugins?.angular_templates?.path_transform or @_default_path_transform
+    @module = config.plugins?.pug_angular_templates?.module or 'templates'
+    @path_transform = config.plugins?.pug_angular_templates?.path_transform or @_default_path_transform
+    @locals = config.plugins?.pug_angular_templates?.locals or {}
+    @pretty = !!config.plugins?.pug_angular_templates?.pretty
+    @doctype = config.plugins?.pug_angular_templates?.doctype or "5"
+
 
   compile: (data, path, callback) ->
-    html = escape(data)
+    pugfunction = pug data,
+      debug: false
+      pretty: @pretty
+      doctype: @doctype
+      filename: path
+      compileDebug: false
+    html = pugfunction @locals
+    html = escape(html)
     url = @path_transform(path.replace(/\\/g, "/"))
 
     callback null, """
