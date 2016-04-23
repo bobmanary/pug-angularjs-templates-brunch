@@ -8,7 +8,7 @@ information.
 
 ## Installation
 
-`npm install --save angularjs-templates-brunch`
+`npm install --save pug-angularjs-templates-brunch`
 
 
 ## Usage
@@ -56,7 +56,7 @@ Default: `templates`
 
 ```coffee
 plugins:
-  angular_templates:
+  pug_angular_templates:
     module: 'MyModule'
 ```
 
@@ -77,14 +77,26 @@ this path transform:
 
 ```coffee
 plugins:
-  angular_templates:
+  pug_angular_templates:
     path_transform: (path) -> path.replace('app/scripts/', '')
 ```
+
+### Pug Options
+
+Supports a couple of other Pug options - pretty, doctype, locals
+
+```coffee
+plugins:
+  pug_angular_templates:
+    pretty: true
+```
+
 
 ## Credit
 
 Inspiration from the following projects:
 
+- https://github.com/dougmoscrop/angularjs-templates-brunch - direct fork!
 - https://github.com/aberman/html2js-brunch
 - https://github.com/nathanredblur/html-angularjs-brunch
 - https://github.com/kenhkan/angular-templates-brunch/
