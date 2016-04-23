@@ -4,7 +4,8 @@ pug = require('pug')
 module.exports = class AngularTemplatesCompiler
   brunchPlugin: yes
   type: 'template'
-  extension: 'jade'
+  extension: 'pug'
+  pattern: /\.(jade|pug)/
 
   _default_path_transform: (path) ->
     # Default path transformation is a no-op
