@@ -5,6 +5,8 @@ For each template, wrap around in a shared AngularJS module called
 See [$templateCache](http://docs.angularjs.org/api/ng.$templateCache) for more
 information.
 
+For information about Pug (formerly known as Jade), go [here](http://jade-lang.com/).
+
 
 ## Installation
 
@@ -37,10 +39,10 @@ information.
 	]);
 	```
 
-  4. Get a particular template by its path.
+  4. Get a particular template by its path.  Templates can be either .jade or .pug.
 
 	```coffee
-	$routeProvider.when('/home', { templateUrl: 'app/home/home.html' });
+	$routeProvider.when('/home', { templateUrl: 'app/home/home.jade' });
 	```
 
   5. Run Brunch (e.g. `brunch build`)
@@ -65,14 +67,14 @@ plugins:
 Specify a transform function for the template path. This callback function will
 be invoked with the brunch path to each template file (e.g.
 'app/home/home.html') and must return a new path for that template (e.g.
-'/partials/home/home.html'). This new path will be used when inserting into the
+'/partials/home/home.jade'). This new path will be used when inserting into the
 template cache. This allows the template files to be served from an arbitrary
 location regardless of their source.
 
 Default: no-op (returns input path)
 
-Example: if your template is in app/scripts/somedir/myTemplate.html buy you'd
-prefer to reference the templates as 'somedir/myTemplate.html', you could use
+Example: if your template is in app/scripts/somedir/myTemplate.jade buy you'd
+prefer to reference the templates as 'somedir/myTemplate.jade', you could use
 this path transform:
 
 ```coffee
