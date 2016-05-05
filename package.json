@@ -1,6 +1,6 @@
 {
   "name": "pug-angularjs-templates-brunch",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "Places templates in an AngularJS module via a Brunch.io plugin",
   "author": {
     "name": "Scott Stunkel"
@@ -28,7 +28,7 @@
   "homepage": "https://github.com/sstunkel/pug-angularjs-templates-brunch",
   "repository": {
     "type": "git",
-    "url": "git@github.com:sstunkgl/pug-angularjs-templates-brunch.git"
+    "url": "git@github.com:sstunkel/pug-angularjs-templates-brunch.git"
   },
   "main": "lib/index",
   "engines": {
