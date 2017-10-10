@@ -32,18 +32,21 @@ module.exports = class AngularTemplatesCompiler
 
     callback null, """
 (function() {
-    var module;
+  var ngModule, template = '#{html}';
 
-    try {
-        // Get current templates module
-        module = angular.module('#{@module}');
-    } catch (error) {
-        // Or create a new one
-        module = angular.module('#{@module}', []);
-    }
+  try {
+      // Get current templates module
+      ngModule = angular.module('#{@module}');
+  } catch (error) {
+      // Or create a new one
+      ngModule = angular.module('#{@module}', []);
+  }
 
-    module.run(["$templateCache", function($templateCache) {
-        $templateCache.put('#{url}', '#{html}');
-    }]);
+  ngModule.run(["$templateCache", function($templateCache) {
+      $templateCache.put('#{url}', template);
+  }]);
+  if (module) {
+    module.exports = function(){return template};
+  }
 })();
 """
