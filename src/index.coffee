@@ -17,7 +17,8 @@ module.exports = class AngularTemplatesCompiler
     @locals = config.plugins?.pug_angular_templates?.locals or {}
     @pretty = !!config.plugins?.pug_angular_templates?.pretty
     @doctype = config.plugins?.pug_angular_templates?.doctype or "5"
-
+    @exportCachedTemplate = if (ngCache = config.plugins?.pug_angular_templates?.exportCachedTemplate)? then !!ngCache else true
+    @exportCommonJs = !!config.plugins?.pug_angular_templates?.exportCommonJs
 
   compile: (data, path, callback) ->
     pugfunction = pug.compile data,
@@ -26,27 +27,38 @@ module.exports = class AngularTemplatesCompiler
       doctype: @doctype
       filename: path
       compileDebug: false
-    html = pugfunction @locals
-    html = escape(html)
+
+    html = escape pugfunction @locals
     url = @path_transform(path.replace(/\\/g, "/"))
 
     callback null, """
-(function() {
-  var ngModule, template = '#{html}';
+      (function() {
+        var ngModule, template = '#{html}';
+        #{@insertExports(url, html)}
+      })();
+    """
 
-  try {
-      // Get current templates module
-      ngModule = angular.module('#{@module}');
-  } catch (error) {
-      // Or create a new one
-      ngModule = angular.module('#{@module}', []);
-  }
+  insertExports: (url, html) ->
+    compiledExports = []
+    if @exportCachedTemplate
+      compiledExports.push """
+        try {
+          // Get current templates module
+          ngModule = angular.module('#{@module}');
+        } catch (error) {
+          // Or create a new one
+          ngModule = angular.module('#{@module}', []);
+        }
+        ngModule.run(["$templateCache", function($templateCache) {
+          $templateCache.put('#{url}', template);
+        }]);
+      """
 
-  ngModule.run(["$templateCache", function($templateCache) {
-      $templateCache.put('#{url}', template);
-  }]);
-  if (module) {
-    module.exports = function(){return template};
-  }
-})();
-"""
+    if @exportCommonJs
+      compiledExports.push """
+        if (module) {
+          module.exports = template;
+        }
+      """
+
+    return compiledExports.join("\n")
